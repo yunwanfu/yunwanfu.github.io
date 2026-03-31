@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>付芸菀 | 个人主页</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       CSS Variables & Themes
+    ============================================================ */
+    :root {
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: rgba(255,255,255,0.04);
+      --bg-card-hover: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(139,92,246,0.4);
+      --text-primary: #f0f0f8;
+      --text-secondary: #a0a0b8;
+      --text-muted: #606078;
+      --accent: #8b5cf6;
+      --accent-2: #06b6d4;
+      --accent-glow: rgba(139,92,246,0.25);
+      --nav-bg: rgba(10,10,15,0.85);
+      --shadow: 0 20px 60px rgba(0,0,0,0.5);
+      --glass: rgba(255,255,255,0.03);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8f8fc;
+      --bg-secondary: #f0f0f8;
+      --bg-card: rgba(255,255,255,0.8);
+      --bg-card-hover: rgba(255,255,255,0.95);
+      --border: rgba(0,0,0,0.08);
+      --border-hover: rgba(139,92,246,0.4);
+      --text-primary: #1a1a2e;
+      --text-secondary: #4a4a6a;
+      --text-muted: #9090aa;
+      --accent: #7c3aed;
+      --accent-2: #0891b2;
+      --accent-glow: rgba(124,58,237,0.15);
+      --nav-bg: rgba(248,248,252,0.85);
+      --shadow: 0 20px 60px rgba(0,0,0,0.1);
+      --glass: rgba(255,255,255,0.6);
+    }
+
+    /* ============================================================
+       Reset & Base
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans SC', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* ============================================================
+       Background Orbs
+    ============================================================ */
+    .bg-orbs {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35;
+      animation: float 8s ease-in-out infinite;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #8b5cf6, transparent 70%);
+      top: -10%; left: -5%;
+      animation-delay: 0s;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #06b6d4, transparent 70%);
+      bottom: 10%; right: -5%;
+      animation-delay: -4s;
+    }
+    .orb-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #ec4899, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -2s; opacity: 0.2;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* ============================================================
+       Navigation
+    ============================================================ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: var(--transition);
+    }
+
+    .nav-logo {
+      font-size: 1.2rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem; list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--accent);
+      transform: scaleX(0); transform-origin: center;
+      transition: transform 0.3s ease;
+      border-radius: 2px;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 14px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      transition: var(--transition);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    /* Mobile menu */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text-primary); border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ============================================================
+       Layout
+    ============================================================ */
+    .container {
+      max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+      position: relative; z-index: 1;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    section + section {
+      border-top: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       Hero Section
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 64px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem; align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(139,92,246,0.3);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.6s ease both;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    .hero-name {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
+      margin-bottom: 0.5rem;
+      animation: fadeInUp 0.6s 0.1s ease both;
+    }
+
+    .hero-name-en {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 300; letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.6s 0.15s ease both;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      animation: fadeInUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      animation: fadeInUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      color: #fff; text-decoration: none;
+      padding: 12px 28px; border-radius: 12px;
+      font-size: 0.9rem; font-weight: 600;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 30px var(--accent-glow);
+    }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--bg-card);
+      color: var(--text-primary); text-decoration: none;
+      padding: 12px 28px; border-radius: 12px;
+      font-size: 0.9rem; font-weight: 600;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+      transform: translateY(-2px);
+    }
+
+    /* Avatar */
+    .hero-avatar {
+      animation: fadeInUp 0.6s 0.2s ease both;
+    }
+
+    .avatar-frame {
+      position: relative; width: 200px; height: 260px;
+    }
+
+    .avatar-ring {
+      position: absolute; inset: -8px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--accent), var(--accent-2), #ec4899, var(--accent));
+      animation: spin 6s linear infinite;
+    }
+
+    .avatar-ring-inner {
+      position: absolute; inset: 3px;
+      background: var(--bg-primary);
+      border-radius: 50%;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+.avatar-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--accent);  /* 静态边框 */
+}
+
+.avatar-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+    /* Social links */
+    .social-links {
+      display: flex; gap: 1rem; margin-top: 2rem;
+      animation: fadeInUp 0.6s 0.4s ease both;
+    }
+
+    .social-link {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-secondary); text-decoration: none;
+      font-size: 1rem; transition: var(--transition);
+    }
+    .social-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+      transform: translateY(-3px);
+    }
+
+    /* ============================================================
+       Section Headers
+    ============================================================ */
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700; letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      color: var(--text-secondary); margin-top: 0.75rem;
+      max-width: 560px; font-size: 1rem;
+    }
+
+    /* ============================================================
+       About Section
+    ============================================================ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .stat-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-number {
+      font-size: 2rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;
+    }
+
+    /* Skills */
+    .skills-wrap {
+      margin-top: 2rem;
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+    }
+
+    .skill-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 6px 14px;
+      font-size: 0.8rem; color: var(--text-secondary);
+      transition: var(--transition);
+      cursor: default;
+    }
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    /* ============================================================
+       News Section
+    ============================================================ */
+    .news-list {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+
+    .news-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 1.5rem; align-items: start;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.5rem;
+      transition: var(--transition);
+    }
+    .news-item:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateX(4px);
+      box-shadow: var(--shadow);
+    }
+
+    .news-date {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;
+      color: var(--accent); background: var(--accent-glow);
+      border: 1px solid rgba(139,92,246,0.2);
+      border-radius: 8px; padding: 6px 10px; text-align: center;
+      white-space: nowrap;
+    }
+
+    .news-badge {
+      display: inline-flex; align-items: center;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 2px 10px;
+      border-radius: 50px; margin-bottom: 6px;
+    }
+    .news-badge.paper { background: rgba(6,182,212,0.1); color: #06b6d4; border: 1px solid rgba(6,182,212,0.2); }
+    .news-badge.award { background: rgba(245,158,11,0.1); color: #f59e0b; border: 1px solid rgba(245,158,11,0.2); }
+    .news-badge.talk  { background: rgba(139,92,246,0.1); color: #8b5cf6; border: 1px solid rgba(139,92,246,0.2); }
+    .news-badge.misc  { background: rgba(16,185,129,0.1); color: #10b981; border: 1px solid rgba(16,185,129,0.2); }
+
+    .news-title {
+      font-size: 0.95rem; font-weight: 600;
+      color: var(--text-primary); margin-bottom: 4px;
+    }
+
+    .news-body {
+      font-size: 0.875rem; color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .news-body a {
+      color: var(--accent); text-decoration: none;
+    }
+    .news-body a:hover { text-decoration: underline; }
+
+    /* ============================================================
+       Contact Section
+    ============================================================ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .contact-card {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.5rem;
+      text-decoration: none; color: var(--text-primary);
+      transition: var(--transition);
+    }
+    .contact-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-icon {
+      width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .contact-icon.email { background: rgba(139,92,246,0.1); }
+    .contact-icon.wechat { background: rgba(7,193,96,0.1); }
+    .contact-icon.cv    { background: rgba(16,185,129,0.1); }
+    .contact-icon.github{ background: rgba(255,255,255,0.05); }
+
+    .contact-info .label {
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 2px;
+    }
+    .contact-info .value {
+      font-size: 0.95rem; font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    /* ============================================================
+       CV Section
+    ============================================================ */
+    .cv-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px; padding: 3rem;
+    }
+
+    .cv-download-banner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+
+    .cv-info h3 {
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;
+    }
+    .cv-info p { color: var(--text-secondary); font-size: 0.9rem; }
+
+    .cv-entries {
+      margin-top: 2.5rem;
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    .cv-entry {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .cv-entry:first-child { border-top: none; }
+
+    .cv-year {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--text-muted); padding-top: 3px;
+    }
+
+    .cv-entry-title {
+      font-weight: 600; color: var(--text-primary); margin-bottom: 2px;
+    }
+
+    .cv-entry-org {
+      font-size: 0.9rem; color: var(--accent); margin-bottom: 4px;
+    }
+
+    .cv-entry-desc {
+      font-size: 0.875rem; color: var(--text-secondary);
+    }
+
+    /* ============================================================
+       Footer
+    ============================================================ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      position: relative; z-index: 1;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ============================================================
+       Animations
+    ============================================================ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ============================================================
+       Responsive
+    ============================================================ */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-avatar { order: -1; display: flex; justify-content: center; }
+      .hero-actions { justify-content: center; }
+      .social-links { justify-content: center; }
+      .hero-badge { margin: 0 auto 1.5rem; }
+      .hero-tagline { margin: 0 auto 2.5rem; }
+
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; inset: 64px 0 0 0;
+        background: var(--bg-primary);
+        padding: 2rem; gap: 1.5rem;
+        align-items: center; justify-content: flex-start;
+        z-index: 99;
+      }
+
+      .news-item { grid-template-columns: 1fr; gap: 0.75rem; }
+      .cv-entry { grid-template-columns: 1fr; gap: 0.25rem; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ============================================================
+       Navigation
+  ============================================================ -->
+  <nav id="navbar">
+    <div class="nav-logo">付芸菀</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">关于我</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#cv">简历</a></li>
+      <li><a href="#contact">联系</a></li>
+    </ul>
+    <div style="display:flex;gap:0.75rem;align-items:center;">
+      <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">
+        <span id="themeIcon">☀️</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       Hero Section
+  ============================================================ -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            开放合作 · Available for Collaboration
+          </div>
+          <h1 class="hero-name">付芸菀</h1>
+          <p class="hero-name-en">Yunwan Fu</p>
+          <p class="hero-tagline">
+            研究者 · 开发者 · 终身学习者<br>
+            专注于 <span style="color:var(--accent)">自动化</span> 与 <span style="color:var(--accent-2)">人工智能</span> 领域的探索
+          </p>
+          <div class="hero-actions">
+            <a href="cv.pdf" class="btn-primary" download>
+              📄 下载 CV
+            </a>
+            <a href="#contact" class="btn-secondary">
+              ✉️ 联系我
+            </a>
+          </div>
+          <div class="social-links">
+            <a href="mailto:asterrose@sjtu.edu.cn" class="social-link" title="Email">✉</a>
+            <a href="javascript:void(0);" onclick="copyWeChat('mggzfyw')" class="social-link" title="微信">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.269-.03-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/>
+              </svg>
+            </a>
+            <a href="https://github.com/yunwanfu" class="social-link" target="_blank" title="GitHub">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </a>
+            <a href="https://scholar.google.com/" class="social-link" target="_blank" title="Google Scholar">🎓</a>
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="hero-avatar">
+          <div class="avatar-frame">
+            <div class="avatar-img">
+              <img src="photo.jpg" alt="付芸菀" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="avatar-placeholder" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">👩‍💻</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       About Section
+  ============================================================ -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">关于我</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            我是<strong>付芸菀</strong>，<a href="https://www.sjtu.edu.cn/" target="_blank" style="color: var(--accent);">上海交通大学</a>24级自动化专业（IEEE试点班）
+            的本科生，师从<a href="https://yaomarkmu.github.io/" target="_blank" style="color: var(--accent);">穆尧老师</a>。我的研究兴趣包括具身智能和视觉-语言-动作（VLA）模型。
+          </p>
+          <p>
+            我曾开发医疗内镜实时SLAM系统，以及车牌识别系统HybridLPR（准确率96.09%）。
+            曾获全国大学生数学建模竞赛国家一等奖、美国大学生数学建模竞赛特等奖提名（Finalist）、上海交通大学A等学业奖学金、睿远红杉人才发展基金等。
+          </p>
+          <div class="skills-wrap">
+            <span class="skill-tag">🤖 Robotic</span>
+            <span class="skill-tag">🧠 VLA</span>
+            <span class="skill-tag">🎯 Agent</span>
+            <span class="skill-tag">🦾 Manipulation</span>
+            <span class="skill-tag">👁️ CV</span>
+            <span class="skill-tag">🗺️ SLAM</span>
+            <span class="skill-tag">🐍 Python</span>
+            <span class="skill-tag">⚡ C++</span>
+          </div>
+        </div>
+
+        <div class="about-stats reveal">
+          <div class="stat-card">
+            <div class="stat-number">暂无</div>
+            <div class="stat-label">发表论文</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5</div>
+            <div class="stat-label">开源项目</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">1+</div>
+            <div class="stat-label">年研究经验</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2</div>
+            <div class="stat-label">学术合作</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       News Section
+  ============================================================ -->
+  <section id="news">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Latest Updates</div>
+        <h2 class="section-title">News</h2>
+        <p class="section-desc">最新动态、论文发表与学术活动</p>
+      </div>
+              <div class="news-item reveal">
+          <div class="news-date">2026<br>Mar</div>
+          <div>
+            <span class="news-badge misc">Misc</span>
+            <div class="news-title">加入PSI Lab</div>
+            <div class="news-body">
+              加入USC（南加州大学）Physical SuperIntelligence (PSI) Lab，开始新的研究方向探索。
+            </div>
+          </div>
+        </div>
+        <div class="news-item reveal">
+          <div class="news-date">2025<br>Dec</div>
+          <div>
+            <span class="news-badge award">Award</span>
+            <div class="news-title">获得A等学业奖学金</div>
+            <div class="news-body">
+              荣获2024-2025年度上海交通大学A等学业奖学金（专业第一）。
+            </div>
+          </div>
+        </div>
+        <div class="news-item reveal">
+          <div class="news-date">2025<br>Nov</div>
+          <div>
+            <span class="news-badge award">Award</span>
+            <div class="news-title">获得睿远红杉人才发展基金</div>
+            <div class="news-body">
+              荣获睿远红杉人才发展基金（专业唯一）。
+            </div>
+          </div>
+        </div>
+
+        <div class="news-item reveal">
+          <div class="news-date">2025<br>Nov</div>
+          <div>
+            <span class="news-badge award">Award</span>
+            <div class="news-title">获得国赛国家级一等奖</div>
+            <div class="news-body">
+              荣获2025年全国大学生数学建模竞赛C题国家级一等奖。
+            </div>
+          </div>
+        </div>
+
+              <div class="news-item reveal">
+          <div class="news-date">2025<br>Nov</div>
+          <div>
+            <span class="news-badge award">Award</span>
+            <div class="news-title">获得“三好学生”称号</div>
+            <div class="news-body">
+              荣获2024-2025年度上海交通大学“三好学生”称号。
+            </div>
+          </div>
+        </div>
+      
+
+        <div class="news-item reveal">
+          <div class="news-date">2025<br>Sep</div>
+          <div>
+            <span class="news-badge misc">Misc</span>
+            <div class="news-title">加入ScaleLab</div>
+            <div class="news-body">
+              加入上海交通大学大学ScaleLab，开始新的研究方向探索。
+            </div>
+          </div>
+        </div>
+      
+        <div class="news-item reveal">
+          <div class="news-date">2025<br>May</div>
+          <div>
+            <span class="news-badge award">Award</span>
+            <div class="news-title">获得美赛F奖</div>
+            <div class="news-body">
+              荣获2025年美国大学生数学建模竞赛C题特等奖提名（Finalist）。
+            </div>
+          </div>
+        </div>
+
+
+  </section>
+
+  <!-- ============================================================
+       CV Section
+  ============================================================ -->
+  <section id="cv">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Curriculum Vitae</div>
+        <h2 class="section-title">简历</h2>
+      </div>
+
+      <div class="cv-section reveal">
+        <div class="cv-download-banner">
+          <div class="cv-info">
+            <h3>付芸菀 · Yunwan Fu</h3>
+            <p>Automation Undergraduate / Researcher · 点击下载完整 PDF 版本简历</p>
+          </div>
+          <a href="cv.pdf" class="btn-primary" download>
+            📄 下载 CV (PDF)
+          </a>
+        </div>
+
+        <!-- Education -->
+        <h3 style="margin-top:2rem;margin-bottom:0.5rem;font-size:1rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;">🎓 教育经历</h3>
+
+          <div class="cv-entry">
+            <div class="cv-year">2024 — 至今</div>
+            <div>
+              <div class="cv-entry-title">本科在读 · 自动化（IEEE试点班）</div>
+              <div class="cv-entry-org">上海交通大学 · 自动化与感知学院</div>
+              <div class="cv-entry-desc">GPA: 4.0 / 4.3 · 综合成绩: 92/100 (专业前1/25)</div>
+            </div>
+          </div>
+        </div>
+
+ <!-- Experience -->
+      <!--  <h3 style="margin-top:2rem;margin-bottom:0.5rem;font-size:1rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;">💼 实习 / 科研经历</h3>
+        <div class="cv-entries">
+          <div class="cv-entry">
+            <div class="cv-year">2024 夏</div>
+            <div>
+              <div class="cv-entry-title">研究实习生</div>
+              <div class="cv-entry-org">XX 公司 / 研究院</div>
+              <div class="cv-entry-desc">参与 XX 项目，负责 XX 模块的研发，产出 X 篇论文 / 代码开源。</div>
+            </div>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-year">2023</div>
+            <div>
+              <div class="cv-entry-title">助教</div>
+              <div class="cv-entry-org">XX 大学 · XX 课程</div>
+              <div class="cv-entry-desc">负责课程答疑、作业批改，辅助教授完成实验课教学。</div>
+            </div>
+          </div>
+        </div>-->
+
+     <!-- Publications -->
+    <!--       <h3 style="margin-top:2rem;margin-bottom:0.5rem;font-size:1rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;">📝 代表性论文</h3>
+        <div class="cv-entries">
+          <div class="cv-entry">
+            <div class="cv-year">ACL 2026</div>
+            <div>
+              <div class="cv-entry-title">XXX: A Novel Approach to YYY</div>
+              <div class="cv-entry-org"><strong>付芸菀</strong>, 合作者A, 合作者B</div>
+              <div class="cv-entry-desc">Annual Meeting of the Association for Computational Linguistics, 2026.</div>
+            </div>
+          </div>
+          <div class="cv-entry">
+            <div class="cv-year">EMNLP 2025</div>
+            <div>
+              <div class="cv-entry-title">YYY: Exploring ZZZ in Large Language Models</div>
+              <div class="cv-entry-org"><strong>付芸菀</strong>, 合作者C</div>
+              <div class="cv-entry-desc">Empirical Methods in Natural Language Processing, 2025.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ============================================================
+       Contact Section
+  ============================================================ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">Get in Touch</div>
+        <h2 class="section-title">联系我</h2>
+        <p class="section-desc">欢迎学术合作、项目咨询或任何有趣的想法，随时联系！</p>
+      </div>
+
+      <div class="contact-grid">
+        <a href="mailto:asterrose@sjtu.edu.cn" class="contact-card reveal">
+          <div class="contact-icon email">✉️</div>
+          <div class="contact-info">
+            <div class="label">Email</div>
+            <div class="value">asterrose@sjtu.edu.cn</div>
+          </div>
+        </a>
+
+        <a href="javascript:void(0);" onclick="copyWeChat('mggzfyw')" class="contact-card reveal">
+          <div class="contact-icon wechat">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.269-.03-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/>
+            </svg>
+          </div>
+          <div class="contact-info">
+            <div class="label">微信 WeChat</div>
+            <div class="value">mggzfyw</div>
+          </div>
+        </a>
+
+        <a href="cv.pdf" class="contact-card reveal" download>
+          <div class="contact-icon cv">📄</div>
+          <div class="contact-info">
+            <div class="label">简历 CV</div>
+            <div class="value">点击下载 PDF</div>
+          </div>
+        </a>
+
+        <a href="https://github.com/yunwanfu" class="contact-card reveal" target="_blank">
+          <div class="contact-icon github">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </div>
+          <div class="contact-info">
+            <div class="label">GitHub</div>
+            <div class="value">github.com/yunwanfu</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Footer
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <p>© 2026 <span>付芸菀</span> · 用 ❤️ 构建 · 欢迎联系合作</p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JavaScript
+  ============================================================ -->
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      document.getElementById('themeIcon').textContent = next === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', next);
+    }
+
+    // Persist theme
+    (function() {
+      const saved = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('themeIcon').textContent = saved === 'dark' ? '☀️' : '🌙';
+    })();
+
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // Close menu on link click
+    document.querySelectorAll('#navLinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    // Scroll Reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 20) {
+        nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
+    });
+
+    // Magnetic button effect
+    document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.15;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.15;
+        btn.style.transform = `translateX(${x}px) translateY(${y - 2}px) scale(1.02)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+
+    // 复制微信号功能
+    function copyWeChat(wechatId) {
+      const textArea = document.createElement('textarea');
+      textArea.value = wechatId;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        const successful = document.execCommand('copy');
+        const msg = successful ? '微信号已复制到剪贴板: ' + wechatId : '复制失败，请手动复制';
+        alert(msg);
+      } catch (err) {
+        alert('无法复制，请手动复制微信号: ' + wechatId);
+      }
+      document.body.removeChild(textArea);
+    }
+  </script>
+
+</body>
+</html>
