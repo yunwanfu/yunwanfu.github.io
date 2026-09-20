@@ -112,12 +112,22 @@
 
     footer { margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--text-muted); font-size: 0.85rem; }
 
-    #toast {
-      position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%);
-      background: var(--text); color: var(--bg); padding: 8px 16px; border-radius: 4px;
-      font-size: 0.9rem; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    /* WeChat dialog */
+    dialog {
+      width: calc(100% - 32px); max-width: 360px; padding: 24px; text-align: center;
+      background: var(--bg); color: var(--text);
+      border: 1px solid var(--rule); border-radius: 6px;
     }
-    #toast.show { opacity: 1; }
+    dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
+    dialog h3 { margin: 0 0 12px; font-size: 1.05rem; font-weight: 600; }
+    dialog p { margin: 0 0 4px; font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
+    dialog img { display: block; width: 220px; max-width: 100%; height: auto; margin: 16px auto; padding: 8px; background: #fff; border: 1px solid var(--rule); }
+    dialog .dlg-close {
+      all: unset; cursor: pointer; padding: 4px 18px; font-size: 0.9rem;
+      color: var(--text); border: 1px solid var(--rule); border-radius: 4px;
+    }
+    dialog .dlg-close:hover { border-color: var(--tab-on); }
+    dialog .dlg-close:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 
     @media (max-width: 600px) {
       .header { flex-direction: column-reverse; gap: 20px; }
@@ -128,7 +138,7 @@
     }
     @media print {
       main { padding-top: 0; }
-      .lang, #toast { display: none; }
+      .lang { display: none; }
     }
   </style>
 </head>
@@ -156,7 +166,7 @@
         <li><a href="https://github.com/yunwanfu" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         <li><a href="https://openreview.net/profile?id=~Yunwan_Fu1" target="_blank" rel="noopener noreferrer">OpenReview</a></li>
         <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
-        <li><button type="button" id="wechat" data-a="mggz" data-b="fyw" title="点击复制微信号 / Click to copy WeChat ID">WeChat</button></li>
+        <li><button type="button" id="wechat" aria-haspopup="dialog">WeChat</button></li>
       </ul>
 
     </div>
@@ -225,15 +235,19 @@
   </footer>
 </main>
 
-<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="wechat-dialog" aria-labelledby="wechat-title">
+  <h3 id="wechat-title">WeChat 微信联系须知</h3>
+  <p lang="en">Please include your real name, institution, and purpose in the friend request.</p>
+  <p lang="zh-CN">请在验证消息中注明真实姓名、所在机构和来意。</p>
+  <img src="wechat-qr.png" alt="WeChat QR code" width="220" height="220" />
+  <button type="button" class="dlg-close">Close</button>
+</dialog>
 
 <script>
   (function () {
     var root = document.documentElement;
-    var toast = document.getElementById('toast');
     var wechat = document.getElementById('wechat');
     var switches = document.querySelectorAll('.lang button');
-    var timer;
 
     function current() { return root.getAttribute('data-lang') === 'en' ? 'en' : 'zh'; }
 
@@ -261,23 +275,15 @@
     var tab = document.querySelector('.tab button');
     if (tab) tab.addEventListener('click', function () { tab.classList.add('is-checked'); });
 
-    function show(msg) {
-      toast.textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(timer);
-      timer = setTimeout(function () { toast.classList.remove('show'); }, 1800);
-    }
+    var dialog = document.getElementById('wechat-dialog');
+    function closeDialog() { if (dialog.close) dialog.close(); else dialog.removeAttribute('open'); }
     wechat.addEventListener('click', function () {
-      var id = wechat.getAttribute('data-a') + wechat.getAttribute('data-b');  // joined at click time, not in page source
-      var zh = current() === 'zh';
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(id).then(
-          function () { show((zh ? '已复制微信号：' : 'WeChat ID copied: ') + id); },
-          function () { show((zh ? '微信号：' : 'WeChat ID: ') + id); }
-        );
-      } else {
-        show((zh ? '微信号：' : 'WeChat ID: ') + id);
-      }
+      if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', '');
+    });
+    dialog.querySelector('.dlg-close').addEventListener('click', closeDialog);
+    dialog.addEventListener('click', function (e) {  // click outside the card (on the backdrop) closes it
+      var r = dialog.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) closeDialog();
     });
   })();
 </script>
