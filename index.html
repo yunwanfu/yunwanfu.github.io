@@ -149,7 +149,7 @@
       <p data-l="en">I am a junior undergraduate at Shanghai Jiao Tong University, advised by Prof. <a href="https://yaomarkmu.github.io/" target="_blank" rel="noopener noreferrer">Yao (Mark) Mu</a>. My research interests include embodied intelligence, Vision-Language-Action (VLA) models, robotic manipulation, computer vision, and SLAM. I also love long-distance running and baking, and you are welcome to come try the cute bunny cookies I bake :)</p>
 
       <ul class="links">
-        <li><a href="mailto:asterrose@sjtu.edu.cn">Email</a></li>
+        <li><a href="#" id="email" data-u="asterrose" data-d="sjtu.edu.cn">Email</a><noscript> (asterrose at sjtu dot edu dot cn)</noscript></li>
         <li><a href="https://github.com/yunwanfu" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         <li><a href="https://openreview.net/profile?id=~Yunwan_Fu1" target="_blank" rel="noopener noreferrer">OpenReview</a></li>
         <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
@@ -250,6 +250,10 @@
       });
     }
     apply(current());
+
+    // Assemble the mailto link at runtime so the full address never appears in the page source.
+    var email = document.getElementById('email');
+    if (email) email.setAttribute('href', 'mail' + 'to:' + email.getAttribute('data-u') + '@' + email.getAttribute('data-d'));
 
     var tab = document.querySelector('.tab button');
     if (tab) tab.addEventListener('click', function () { tab.classList.add('is-checked'); });
