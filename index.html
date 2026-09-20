@@ -37,6 +37,9 @@
       --rule: #d8dee4;
       --link: #0b57a4;
       --link-hover: #083d73;
+      --link-line: rgba(11, 87, 164, 0.32);
+      --accent: #2f5fb3;
+      --accent-soft: #e6edfa;
       --tab-idle: #a0a8b0;
       --tab-on: #150c21;
     }
@@ -48,6 +51,9 @@
         --rule: #2d333a;
         --link: #6cb0f5;
         --link-hover: #9ccbf9;
+        --link-line: rgba(108, 176, 245, 0.4);
+        --accent: #7fb0ff;
+        --accent-soft: #1c2740;
         --tab-idle: #7d8791;
         --tab-on: #e6e8ea;
       }
@@ -65,50 +71,90 @@
       color: var(--text);
       font-family: 'Inter', 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
       line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
+    ::selection { background: var(--accent-soft); }
 
-    a { color: var(--link); text-decoration: none; }
-    a:hover { color: var(--link-hover); text-decoration: underline; }
+    /* Links: faint underline at rest, solid on hover */
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      text-decoration-color: var(--link-line);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      transition: color 0.2s, text-decoration-color 0.2s;
+    }
+    a:hover { color: var(--link-hover); text-decoration-color: currentColor; }
     a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+    .nb { white-space: nowrap; }
+    .header p, .entries .what { text-wrap: pretty; }
 
-    main { max-width: 760px; margin: 0 auto; padding: 32px 20px 40px; }
+    main { max-width: 760px; margin: 0 auto; padding: 28px 20px 40px; }
 
-    /* Language switch */
-    .lang { display: flex; justify-content: flex-end; align-items: center; font-size: 0.85rem; color: var(--rule); margin-bottom: 20px; }
-    .lang button { all: unset; cursor: pointer; padding: 2px 6px; color: var(--text-muted); border-radius: 3px; }
-    .lang button:hover { color: var(--link-hover); }
-    .lang button[aria-pressed="true"] { color: var(--text); font-weight: 600; }
+    /* Language switch: small segmented control */
+    .lang {
+      display: flex; width: fit-content; margin: 0 0 22px auto; gap: 2px; padding: 2px;
+      border: 1px solid var(--rule); border-radius: 999px;
+    }
+    .lang button {
+      all: unset; cursor: pointer; padding: 1px 12px; border-radius: 999px;
+      font-size: 0.8rem; line-height: 1.7; color: var(--text-muted);
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang button:hover { color: var(--text); }
+    .lang button[aria-pressed="true"] { background: var(--text); color: var(--bg); font-weight: 500; }
     .lang button:focus-visible { outline: 2px solid var(--link); outline-offset: 1px; }
 
     /* Header */
-    .header { display: flex; gap: 32px; align-items: flex-start; justify-content: space-between; }
+    .header { display: flex; gap: 36px; align-items: flex-start; justify-content: space-between; }
+    .header > div::before {
+      content: ""; display: block; width: 36px; height: 3px; margin-bottom: 16px;
+      border-radius: 2px; background: var(--accent);
+    }
     .header h1 { margin: 0 0 14px; font-size: 2.6rem; font-weight: 700; line-height: 1.2; letter-spacing: 0.01em; }
     .header h1 .alt { margin-left: 10px; font-size: 1.25rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0; }
     .header p { margin: 0; }
     .header p.more { margin-top: 10px; }
-    .photo { flex: none; width: 168px; aspect-ratio: 2 / 3; height: auto; object-fit: cover; border-radius: 4px; border: 1px solid var(--rule); }
+    .photo {
+      flex: none; width: 168px; aspect-ratio: 2 / 3; height: auto; object-fit: cover;
+      border-radius: 10px; margin: 0 8px 8px 0;
+      box-shadow: 0 0 0 1px var(--rule), 8px 8px 0 var(--accent-soft);
+    }
 
-    .links { margin: 16px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 28px; }
-    .links button { all: unset; cursor: pointer; color: var(--link); }
-    .links button:hover { color: var(--link-hover); text-decoration: underline; }
+    .links { margin: 18px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 28px; }
+    .links button {
+      all: unset; cursor: pointer; color: var(--link);
+      text-decoration: underline; text-decoration-color: var(--link-line);
+      text-decoration-thickness: 1px; text-underline-offset: 4px;
+      transition: color 0.2s, text-decoration-color 0.2s;
+    }
+    .links button:hover { color: var(--link-hover); text-decoration-color: currentColor; }
     .links button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 
     /* Sections */
     section { margin-top: 44px; }
+
     /* Section title styled like a tab: grey at rest, dark on hover / press / selected. */
-    .tab { margin: 0 0 12px; font-size: 1.6rem; font-weight: 400; line-height: 1.6; }
+    .tab { margin: 0 0 14px; font-size: 1.6rem; font-weight: 400; line-height: 1.6; }
     .tab button { all: unset; cursor: pointer; color: var(--tab-idle); transition: color 0.15s; }
     .tab button:hover,
     .tab button:active,
     .tab button.is-checked { color: var(--tab-on); }
     .tab button:focus-visible { color: var(--tab-on); outline: 2px solid var(--link); outline-offset: 4px; }
 
-    /* Two-column entries: date | content */
+    /* Timeline entries: date | rail with dot | text */
     .entries { margin: 0; padding: 0; list-style: none; }
-    .entries li { display: grid; grid-template-columns: 96px 1fr; gap: 0 20px; margin-bottom: 12px; }
-    .entries .when { color: var(--text-muted); font-size: 0.92rem; font-variant-numeric: tabular-nums; }
-    .entries .what { min-width: 0; }
-
+    .entries li { display: grid; grid-template-columns: 96px 1fr; gap: 0 20px; }
+    .entries .when { padding-top: 2px; color: var(--text-muted); font-size: 0.92rem; font-variant-numeric: tabular-nums; transition: color 0.2s; }
+    .entries .what { position: relative; min-width: 0; padding: 0 0 16px 22px; border-left: 1px solid var(--rule); }
+    .entries li:last-child .what { padding-bottom: 0; }
+    .entries .what::before {
+      content: ""; position: absolute; left: -4.5px; top: 0.62em; width: 8px; height: 8px;
+      border-radius: 50%; background: var(--bg); border: 1.5px solid var(--tab-idle);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .entries li:hover .when { color: var(--text); }
+    .entries li:hover .what::before { background: var(--accent); border-color: var(--accent); }
 
     footer { margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--text-muted); font-size: 0.85rem; }
 
@@ -116,25 +162,54 @@
     dialog {
       width: calc(100% - 32px); max-width: 360px; padding: 24px; text-align: center;
       background: var(--bg); color: var(--text);
-      border: 1px solid var(--rule); border-radius: 6px;
+      border: 1px solid var(--rule); border-radius: 10px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
     }
+    dialog[open] { animation: rise 0.25s ease both; }
     dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
+    dialog h3, dialog p { text-wrap: balance; }
     dialog h3 { margin: 0 0 12px; font-size: 1.05rem; font-weight: 600; }
     dialog p { margin: 0 0 4px; font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
-    dialog img { display: block; width: 220px; max-width: 100%; height: auto; margin: 16px auto; padding: 8px; background: #fff; border: 1px solid var(--rule); }
+    dialog img { display: block; width: 220px; max-width: 100%; height: auto; margin: 16px auto; padding: 8px; background: #fff; border: 1px solid var(--rule); border-radius: 6px; }
     dialog .dlg-close {
       all: unset; cursor: pointer; padding: 4px 18px; font-size: 0.9rem;
-      color: var(--text); border: 1px solid var(--rule); border-radius: 4px;
+      color: var(--text); border: 1px solid var(--rule); border-radius: 999px;
+      transition: border-color 0.2s, color 0.2s;
     }
-    dialog .dlg-close:hover { border-color: var(--tab-on); }
+    dialog .dlg-close:hover { border-color: var(--accent); color: var(--accent); }
     dialog .dlg-close:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+    /* Gentle entrance */
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .header { animation: rise 0.6s ease both; }
+    section { animation: rise 0.6s 0.12s ease both; }
+    .entries li { animation: rise 0.5s ease both; }
+    .entries li:nth-child(1) { animation-delay: 0.18s; }
+    .entries li:nth-child(2) { animation-delay: 0.23s; }
+    .entries li:nth-child(3) { animation-delay: 0.28s; }
+    .entries li:nth-child(4) { animation-delay: 0.33s; }
+    .entries li:nth-child(5) { animation-delay: 0.38s; }
+    .entries li:nth-child(6) { animation-delay: 0.43s; }
+    .entries li:nth-child(7) { animation-delay: 0.48s; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
 
     @media (max-width: 600px) {
       .header { flex-direction: column-reverse; gap: 20px; }
       .header h1 { font-size: 2.1rem; }
       .photo { width: 132px; }
-      .entries li { grid-template-columns: 1fr; gap: 0; }
-      .entries .when { margin-bottom: 2px; }
+      /* date above text; rail and dot belong to the whole item */
+      .entries li { display: block; position: relative; padding: 0 0 16px 20px; border-left: 1px solid var(--rule); }
+      .entries li:last-child { padding-bottom: 0; }
+      .entries li::before {
+        content: ""; position: absolute; left: -4.5px; top: 0.55em; width: 8px; height: 8px;
+        border-radius: 50%; background: var(--bg); border: 1.5px solid var(--tab-idle);
+      }
+      .entries li:hover::before { background: var(--accent); border-color: var(--accent); }
+      .entries .what { padding: 0; border: 0; }
+      .entries .what::before { display: none; }
+      .entries .when { padding-top: 0; margin-bottom: 2px; }
     }
     @media print {
       main { padding-top: 0; }
@@ -147,7 +222,6 @@
 
   <nav class="lang" aria-label="Language / 语言">
     <button type="button" data-set="zh" lang="zh-CN">中文</button>
-    <span aria-hidden="true">/</span>
     <button type="button" data-set="en" lang="en">EN</button>
   </nav>
 
@@ -156,9 +230,9 @@
       <h1 data-l="zh">付芸菀<span class="alt">Yunwan Fu</span></h1>
       <h1 data-l="en">Yunwan Fu<span class="alt">付芸菀</span></h1>
 
-      <p data-l="zh">我现为上海交通大学三年级本科生，在 <a href="https://scalelab-sjtu.github.io/index.html" target="_blank" rel="noopener noreferrer">ScaleLab</a> 师从<a href="https://yaomarkmu.github.io/" target="_blank" rel="noopener noreferrer">穆尧（Yao (Mark) Mu）</a>教授。此外，我也正与南加州大学（USC）的 <a href="https://psi-lab.ai/" target="_blank" rel="noopener noreferrer">Physical Superintelligence (PSI) Lab</a> 合作，指导教师为<a href="https://yuewang.xyz/" target="_blank" rel="noopener noreferrer">王岳</a>教授。我的研究兴趣涵盖具身智能、视觉-语言-动作（VLA）模型、Agent、人形机器人（Humanoid）、视觉-语言模型（VLM）以及面向机器人的 Agent Harness。</p>
+      <p data-l="zh">我现为上海交通大学三年级本科生，在 <a href="https://scalelab-sjtu.github.io/index.html" target="_blank" rel="noopener noreferrer">ScaleLab</a> 师从<a class="nb" href="https://yaomarkmu.github.io/" target="_blank" rel="noopener noreferrer">穆尧（Yao (Mark) Mu）</a>教授。此外，我也正与南加州大学（USC）的 <a href="https://psi-lab.ai/" target="_blank" rel="noopener noreferrer">Physical Superintelligence (PSI) Lab</a> 合作，指导教师为<a href="https://yuewang.xyz/" target="_blank" rel="noopener noreferrer">王岳</a>教授。我的研究兴趣涵盖具身智能、视觉-语言-动作（VLA）模型、Agent、人形机器人（Humanoid）、视觉-语言模型（VLM）以及面向机器人的 Agent Harness。</p>
       <p class="more" data-l="zh">同时，我也非常喜欢长跑和烘焙，欢迎来吃我烤的可爱兔子饼干:)</p>
-      <p data-l="en">I am currently a third-year undergraduate at Shanghai Jiao Tong University, working in <a href="https://scalelab-sjtu.github.io/index.html" target="_blank" rel="noopener noreferrer">ScaleLab</a> under the supervision of Prof. <a href="https://yaomarkmu.github.io/" target="_blank" rel="noopener noreferrer">Yao (Mark) Mu</a>. I am also collaborating with the <a href="https://psi-lab.ai/" target="_blank" rel="noopener noreferrer">Physical Superintelligence (PSI) Lab</a> at the University of Southern California, under the guidance of Prof. <a href="https://yuewang.xyz/" target="_blank" rel="noopener noreferrer">Yue Wang</a>. My research interests span embodied intelligence, Vision-Language-Action (VLA) models, agents, humanoid robots, Vision-Language Models (VLMs), and agent harnesses for robotics.</p>
+      <p data-l="en">I am currently a third-year undergraduate at Shanghai Jiao Tong University, working in <a href="https://scalelab-sjtu.github.io/index.html" target="_blank" rel="noopener noreferrer">ScaleLab</a> under the supervision of Prof. <a class="nb" href="https://yaomarkmu.github.io/" target="_blank" rel="noopener noreferrer">Yao (Mark) Mu</a>. I am also collaborating with the <a href="https://psi-lab.ai/" target="_blank" rel="noopener noreferrer">Physical Superintelligence (PSI) Lab</a> at the University of Southern California, under the guidance of Prof. <a href="https://yuewang.xyz/" target="_blank" rel="noopener noreferrer">Yue Wang</a>. My research interests span embodied intelligence, Vision-Language-Action (VLA) models, agents, humanoid robots, Vision-Language Models (VLMs), and agent harnesses for robotics.</p>
       <p class="more" data-l="en">I also love long-distance running and baking, and you are welcome to come try the cute bunny cookies I bake :)</p>
 
       <ul class="links">
