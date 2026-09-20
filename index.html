@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
   <script>
-    // Resolve language before first paint: ?lang= > saved choice > browser language.
+    // Resolve language before first paint: ?lang= > saved choice > Chinese (default).
     (function () {
       var lang = null;
       try {
@@ -22,7 +22,7 @@
           if (s === 'zh' || s === 'en') lang = s;
         } catch (e) {}
       }
-      if (!lang) lang = /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
+      if (!lang) lang = 'zh';
       var root = document.documentElement;
       root.setAttribute('data-lang', lang);
       root.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
