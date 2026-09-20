@@ -153,7 +153,7 @@
         <li><a href="https://github.com/yunwanfu" target="_blank" rel="noopener noreferrer">GitHub</a></li>
         <li><a href="https://openreview.net/profile?id=~Yunwan_Fu1" target="_blank" rel="noopener noreferrer">OpenReview</a></li>
         <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
-        <li><button type="button" id="wechat" data-id="mggzfyw" title="点击复制微信号 / Click to copy WeChat ID">WeChat</button></li>
+        <li><button type="button" id="wechat" data-a="mggz" data-b="fyw" title="点击复制微信号 / Click to copy WeChat ID">WeChat</button></li>
       </ul>
 
     </div>
@@ -265,7 +265,7 @@
       timer = setTimeout(function () { toast.classList.remove('show'); }, 1800);
     }
     wechat.addEventListener('click', function () {
-      var id = wechat.getAttribute('data-id');
+      var id = wechat.getAttribute('data-a') + wechat.getAttribute('data-b');  // joined at click time, not in page source
       var zh = current() === 'zh';
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(id).then(
