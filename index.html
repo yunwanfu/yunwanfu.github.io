@@ -85,7 +85,7 @@
     .header h1 { margin: 0 0 14px; font-size: 2.6rem; font-weight: 700; line-height: 1.2; letter-spacing: 0.01em; }
     .header h1 .alt { margin-left: 10px; font-size: 1.25rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0; }
     .header p { margin: 0; }
-    .photo { flex: none; width: 168px; height: 168px; object-fit: cover; border-radius: 4px; border: 1px solid var(--rule); }
+    .photo { flex: none; width: 168px; aspect-ratio: 2 / 3; height: auto; object-fit: cover; border-radius: 4px; border: 1px solid var(--rule); }
 
     .links { margin: 16px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 28px; }
     .links button { all: unset; cursor: pointer; color: var(--link); }
@@ -121,7 +121,7 @@
     @media (max-width: 600px) {
       .header { flex-direction: column-reverse; gap: 20px; }
       .header h1 { font-size: 2.1rem; }
-      .photo { width: 132px; height: 132px; }
+      .photo { width: 132px; }
       .entries li { grid-template-columns: 1fr; gap: 0; }
       .entries .when { margin-bottom: 2px; }
     }
@@ -145,14 +145,14 @@
       <h1 data-l="zh">付芸菀<span class="alt">Yunwan Fu</span></h1>
       <h1 data-l="en">Yunwan Fu<span class="alt">付芸菀</span></h1>
 
-      <p data-l="zh">我是上海交通大学的大三本科生，导师是<a href="https://yaomarkmu.github.io/">穆尧</a>老师。我的研究兴趣包括具身智能、视觉-语言-动作（VLA）模型、机器人操作（Manipulation）、计算机视觉和 SLAM。同时我也非常喜欢长跑和烘焙，欢迎来吃我烤的可爱兔子饼干:)</p>
-      <p data-l="en">I am a junior undergraduate at Shanghai Jiao Tong University, advised by Prof. <a href="https://yaomarkmu.github.io/">Yao Mu</a>. My research interests include embodied intelligence, Vision-Language-Action (VLA) models, robotic manipulation, computer vision, and SLAM. I also love long-distance running and baking, and you are welcome to come try the cute bunny cookies I bake :)</p>
+      <p data-l="zh">我是上海交通大学的大三本科生，导师是<a href="https://yaomarkmu.github.io/" target="_blank" rel="noopener noreferrer">穆尧（Yao (Mark) Mu）</a>老师。我的研究兴趣包括具身智能、视觉-语言-动作（VLA）模型、机器人操作（Manipulation）、计算机视觉和 SLAM。同时我也非常喜欢长跑和烘焙，欢迎来吃我烤的可爱兔子饼干:)</p>
+      <p data-l="en">I am a junior undergraduate at Shanghai Jiao Tong University, advised by Prof. <a href="https://yaomarkmu.github.io/" target="_blank" rel="noopener noreferrer">Yao (Mark) Mu</a>. My research interests include embodied intelligence, Vision-Language-Action (VLA) models, robotic manipulation, computer vision, and SLAM. I also love long-distance running and baking, and you are welcome to come try the cute bunny cookies I bake :)</p>
 
       <ul class="links">
         <li><a href="mailto:asterrose@sjtu.edu.cn">Email</a></li>
-        <li><a href="https://github.com/yunwanfu">GitHub</a></li>
-        <li><a href="https://openreview.net/profile?id=~Yunwan_Fu1">OpenReview</a></li>
-        <li><a href="cv.pdf">CV</a></li>
+        <li><a href="https://github.com/yunwanfu" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a href="https://openreview.net/profile?id=~Yunwan_Fu1" target="_blank" rel="noopener noreferrer">OpenReview</a></li>
+        <li><a href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
         <li><button type="button" id="wechat" data-id="mggzfyw" title="点击复制微信号 / Click to copy WeChat ID">WeChat</button></li>
       </ul>
 
@@ -173,8 +173,8 @@
       <li>
         <div class="when"><span data-l="zh">2025.12</span><span data-l="en">Dec 2025</span></div>
         <div class="what">
-          <span data-l="zh">荣获 2024–2025 年度上海交通大学 A 等学业奖学金（专业第一）</span>
-          <span data-l="en">Received the A-Grade Academic Scholarship (2024–2025) at Shanghai Jiao Tong University, ranked 1st in major</span>
+          <span data-l="zh">荣获上海交通大学 A 等学业奖学金（专业第一）</span>
+          <span data-l="en">Received the A-Grade Academic Scholarship at Shanghai Jiao Tong University, ranked 1st in major</span>
         </div>
       </li>
       <li>
@@ -187,15 +187,15 @@
       <li>
         <div class="when"><span data-l="zh">2025.11</span><span data-l="en">Nov 2025</span></div>
         <div class="what">
-          <span data-l="zh">荣获 2025 年全国大学生数学建模竞赛 C 题国家级一等奖</span>
-          <span data-l="en">Won the National First Prize (Problem C) in the 2025 China Undergraduate Mathematical Contest in Modeling (CUMCM)</span>
+          <span data-l="zh">荣获全国大学生数学建模竞赛 C 题国家级一等奖</span>
+          <span data-l="en">Won the National First Prize (Problem C) in the China Undergraduate Mathematical Contest in Modeling (CUMCM)</span>
         </div>
       </li>
       <li>
         <div class="when"><span data-l="zh">2025.11</span><span data-l="en">Nov 2025</span></div>
         <div class="what">
-          <span data-l="zh">荣获 2024–2025 年度上海交通大学“三好学生”称号</span>
-          <span data-l="en">Named a Merit Student (“Three-Good Student”) of Shanghai Jiao Tong University for 2024–2025</span>
+          <span data-l="zh">荣获上海交通大学“三好学生”称号</span>
+          <span data-l="en">Named a Merit Student (“Three-Good Student”) of Shanghai Jiao Tong University</span>
         </div>
       </li>
       <li>
@@ -208,8 +208,8 @@
       <li>
         <div class="when"><span data-l="zh">2025.05</span><span data-l="en">May 2025</span></div>
         <div class="what">
-          <span data-l="zh">荣获 2025 年美国大学生数学建模竞赛 C 题特等奖提名（Finalist）</span>
-          <span data-l="en">Named a Finalist (Problem C) in the 2025 Mathematical Contest in Modeling (MCM/ICM)</span>
+          <span data-l="zh">荣获美国大学生数学建模竞赛 C 题特等奖提名（Finalist）</span>
+          <span data-l="en">Named a Finalist (Problem C) in the Mathematical Contest in Modeling (MCM/ICM)</span>
         </div>
       </li>
     </ul>
