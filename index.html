@@ -37,6 +37,8 @@
       --rule: #d8dee4;
       --link: #0b57a4;
       --link-hover: #083d73;
+      --tab-idle: #a0a8b0;
+      --tab-on: #150c21;
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -46,6 +48,8 @@
         --rule: #2d333a;
         --link: #6cb0f5;
         --link-hover: #9ccbf9;
+        --tab-idle: #7d8791;
+        --tab-on: #e6e8ea;
       }
     }
 
@@ -88,11 +92,15 @@
     .links button:hover { color: var(--link-hover); text-decoration: underline; }
     .links button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 
-    .email { margin: 10px 0 0; color: var(--text-muted); font-size: 0.95rem; }
-
     /* Sections */
     section { margin-top: 44px; }
-    h2 { margin: 0 0 14px; padding-bottom: 6px; font-size: 1.3rem; font-weight: 700; border-bottom: 1px solid var(--rule); }
+    /* Section title styled like a tab: grey at rest, dark on hover / press / selected. */
+    .tab { margin: 0 0 12px; font-size: 1.6rem; font-weight: 400; line-height: 1.6; }
+    .tab button { all: unset; cursor: pointer; color: var(--tab-idle); transition: color 0.15s; }
+    .tab button:hover,
+    .tab button:active,
+    .tab button.is-checked { color: var(--tab-on); }
+    .tab button:focus-visible { color: var(--tab-on); outline: 2px solid var(--link); outline-offset: 4px; }
 
     /* Two-column entries: date | content */
     .entries { margin: 0; padding: 0; list-style: none; }
@@ -137,71 +145,71 @@
       <h1 data-l="zh">付芸菀<span class="alt">Yunwan Fu</span></h1>
       <h1 data-l="en">Yunwan Fu<span class="alt">付芸菀</span></h1>
 
-      <p data-l="zh">我是上海交通大学的大三本科生，导师是<a href="https://yaomarkmu.github.io/">穆尧</a>老师。</p>
-      <p data-l="en">I am a junior undergraduate at Shanghai Jiao Tong University, advised by Prof. <a href="https://yaomarkmu.github.io/">Yao Mu</a>.</p>
+      <p data-l="zh">我是上海交通大学的大三本科生，导师是<a href="https://yaomarkmu.github.io/">穆尧</a>老师。我的研究兴趣包括具身智能、视觉-语言-动作（VLA）模型、机器人操作（Manipulation）、计算机视觉和 SLAM。同时我也非常喜欢长跑和烘焙，欢迎来吃我烤的可爱兔子饼干:)</p>
+      <p data-l="en">I am a junior undergraduate at Shanghai Jiao Tong University, advised by Prof. <a href="https://yaomarkmu.github.io/">Yao Mu</a>. My research interests include embodied intelligence, Vision-Language-Action (VLA) models, robotic manipulation, computer vision, and SLAM. I also love long-distance running and baking, and you are welcome to come try the cute bunny cookies I bake :)</p>
 
       <ul class="links">
+        <li><a href="mailto:asterrose@sjtu.edu.cn">Email</a></li>
         <li><a href="https://github.com/yunwanfu">GitHub</a></li>
         <li><a href="https://openreview.net/profile?id=~Yunwan_Fu1">OpenReview</a></li>
         <li><a href="cv.pdf">CV</a></li>
         <li><button type="button" id="wechat" data-id="mggzfyw" title="点击复制微信号 / Click to copy WeChat ID">WeChat</button></li>
       </ul>
 
-      <p class="email">Email: asterrose at sjtu dot edu dot cn</p>
     </div>
     <img class="photo" src="photo.jpg" alt="付芸菀 (Yunwan Fu)" />
   </header>
 
   <section id="highlights">
-    <h2><span data-l="zh">Highlights</span><span data-l="en">Highlights</span></h2>
+    <h2 class="tab"><button type="button">Highlights</button></h2>
     <ul class="entries">
       <li>
         <div class="when"><span data-l="zh">2026.03</span><span data-l="en">Mar 2026</span></div>
         <div class="what">
-          <span data-l="zh">加入 USC（南加州大学）Physical SuperIntelligence (PSI) Lab，开始新的研究方向探索。</span>
-          <span data-l="en">Joined the Physical SuperIntelligence (PSI) Lab at USC to explore a new research direction.</span>
+          <span data-l="zh">加入 USC（南加州大学）Physical SuperIntelligence (PSI) Lab</span>
+          <span data-l="en">Joined the Physical SuperIntelligence (PSI) Lab at USC</span>
         </div>
       </li>
       <li>
         <div class="when"><span data-l="zh">2025.12</span><span data-l="en">Dec 2025</span></div>
         <div class="what">
-          <span data-l="zh">荣获 2024–2025 年度上海交通大学 A 等学业奖学金（专业第一）。</span>
-          <span data-l="en">Received the A-Grade Academic Scholarship (2024–2025) at Shanghai Jiao Tong University, ranked 1st in major.</span>
+          <span data-l="zh">荣获 2024–2025 年度上海交通大学 A 等学业奖学金（专业第一）</span>
+          <span data-l="en">Received the A-Grade Academic Scholarship (2024–2025) at Shanghai Jiao Tong University, ranked 1st in major</span>
         </div>
       </li>
       <li>
         <div class="when"><span data-l="zh">2025.11</span><span data-l="en">Nov 2025</span></div>
         <div class="what">
-          <span data-l="zh">荣获睿远红杉人才发展基金（专业唯一）。</span>
-          <span data-l="en">Received the Ruiyuan Sequoia Talent Development Fund (sole recipient in major).</span>
+          <span data-l="zh">荣获睿远红杉人才发展基金（专业唯一）</span>
+          <span data-l="en">Received the Ruiyuan Sequoia Talent Development Fund (sole recipient in major)</span>
         </div>
       </li>
       <li>
         <div class="when"><span data-l="zh">2025.11</span><span data-l="en">Nov 2025</span></div>
         <div class="what">
-          <span data-l="zh">荣获 2025 年全国大学生数学建模竞赛 C 题国家级一等奖。</span>
-          <span data-l="en">Won the National First Prize (Problem C) in the 2025 China Undergraduate Mathematical Contest in Modeling (CUMCM).</span>
+          <span data-l="zh">荣获 2025 年全国大学生数学建模竞赛 C 题国家级一等奖</span>
+          <span data-l="en">Won the National First Prize (Problem C) in the 2025 China Undergraduate Mathematical Contest in Modeling (CUMCM)</span>
         </div>
       </li>
       <li>
         <div class="when"><span data-l="zh">2025.11</span><span data-l="en">Nov 2025</span></div>
         <div class="what">
-          <span data-l="zh">荣获 2024–2025 年度上海交通大学“三好学生”称号。</span>
-          <span data-l="en">Named a Merit Student (“Three-Good Student”) of Shanghai Jiao Tong University for 2024–2025.</span>
+          <span data-l="zh">荣获 2024–2025 年度上海交通大学“三好学生”称号</span>
+          <span data-l="en">Named a Merit Student (“Three-Good Student”) of Shanghai Jiao Tong University for 2024–2025</span>
         </div>
       </li>
       <li>
         <div class="when"><span data-l="zh">2025.09</span><span data-l="en">Sep 2025</span></div>
         <div class="what">
-          <span data-l="zh">加入上海交通大学 ScaleLab，开始新的研究方向探索。</span>
-          <span data-l="en">Joined ScaleLab at Shanghai Jiao Tong University to explore a new research direction.</span>
+          <span data-l="zh">加入上海交通大学 ScaleLab</span>
+          <span data-l="en">Joined ScaleLab at Shanghai Jiao Tong University</span>
         </div>
       </li>
       <li>
         <div class="when"><span data-l="zh">2025.05</span><span data-l="en">May 2025</span></div>
         <div class="what">
-          <span data-l="zh">荣获 2025 年美国大学生数学建模竞赛 C 题特等奖提名（Finalist）。</span>
-          <span data-l="en">Named a Finalist (Problem C) in the 2025 Mathematical Contest in Modeling (MCM/ICM).</span>
+          <span data-l="zh">荣获 2025 年美国大学生数学建模竞赛 C 题特等奖提名（Finalist）</span>
+          <span data-l="en">Named a Finalist (Problem C) in the 2025 Mathematical Contest in Modeling (MCM/ICM)</span>
         </div>
       </li>
     </ul>
@@ -242,6 +250,9 @@
       });
     }
     apply(current());
+
+    var tab = document.querySelector('.tab button');
+    if (tab) tab.addEventListener('click', function () { tab.classList.add('is-checked'); });
 
     function show(msg) {
       toast.textContent = msg;
