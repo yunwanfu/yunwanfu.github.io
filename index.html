@@ -37,7 +37,6 @@
       --rule: #d8dee4;
       --link: #0b57a4;
       --link-hover: #083d73;
-      --link-line: rgba(11, 87, 164, 0.32);
       --accent: #2f5fb3;
       --accent-soft: #e6edfa;
       --tab-idle: #a0a8b0;
@@ -51,7 +50,6 @@
         --rule: #2d333a;
         --link: #6cb0f5;
         --link-hover: #9ccbf9;
-        --link-line: rgba(108, 176, 245, 0.4);
         --accent: #7fb0ff;
         --accent-soft: #1c2740;
         --tab-idle: #7d8791;
@@ -75,16 +73,9 @@
     }
     ::selection { background: var(--accent-soft); }
 
-    /* Links: faint underline at rest, solid on hover */
-    a {
-      color: var(--link);
-      text-decoration: underline;
-      text-decoration-color: var(--link-line);
-      text-decoration-thickness: 1px;
-      text-underline-offset: 4px;
-      transition: color 0.2s, text-decoration-color 0.2s;
-    }
-    a:hover { color: var(--link-hover); text-decoration-color: currentColor; }
+    /* Links: no underline; colour darkens on hover */
+    a { color: var(--link); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--link-hover); }
     a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
     .nb { white-space: nowrap; }
     .header p, .entries .what { text-wrap: pretty; }
@@ -107,10 +98,6 @@
 
     /* Header */
     .header { display: flex; gap: 36px; align-items: flex-start; justify-content: space-between; }
-    .header > div::before {
-      content: ""; display: block; width: 36px; height: 3px; margin-bottom: 16px;
-      border-radius: 2px; background: var(--accent);
-    }
     .header h1 { margin: 0 0 14px; font-size: 2.6rem; font-weight: 700; line-height: 1.2; letter-spacing: 0.01em; }
     .header h1 .alt { margin-left: 10px; font-size: 1.25rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0; }
     .header p { margin: 0; }
@@ -122,13 +109,8 @@
     }
 
     .links { margin: 18px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 28px; }
-    .links button {
-      all: unset; cursor: pointer; color: var(--link);
-      text-decoration: underline; text-decoration-color: var(--link-line);
-      text-decoration-thickness: 1px; text-underline-offset: 4px;
-      transition: color 0.2s, text-decoration-color 0.2s;
-    }
-    .links button:hover { color: var(--link-hover); text-decoration-color: currentColor; }
+    .links button { all: unset; cursor: pointer; color: var(--link); transition: color 0.2s; }
+    .links button:hover { color: var(--link-hover); }
     .links button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 
     /* Sections */
@@ -251,49 +233,49 @@
     <h2 class="tab"><button type="button">News</button></h2>
     <ul class="entries">
       <li>
-        <div class="when"><span data-l="zh">2026.03</span><span data-l="en">Mar 2026</span></div>
+        <div class="when"><span data-l="zh">2026.03</span><span data-l="en">2026.03</span></div>
         <div class="what">
           <span data-l="zh">加入 USC（南加州大学）Physical Superintelligence (PSI) Lab</span>
           <span data-l="en">Joined the Physical Superintelligence (PSI) Lab at USC</span>
         </div>
       </li>
       <li>
-        <div class="when"><span data-l="zh">2025.12</span><span data-l="en">Dec 2025</span></div>
+        <div class="when"><span data-l="zh">2025.12</span><span data-l="en">2025.12</span></div>
         <div class="what">
           <span data-l="zh">荣获上海交通大学 A 等学业奖学金（专业第一）</span>
           <span data-l="en">Received the A-Grade Academic Scholarship at Shanghai Jiao Tong University, ranked 1st in major</span>
         </div>
       </li>
       <li>
-        <div class="when"><span data-l="zh">2025.11</span><span data-l="en">Nov 2025</span></div>
+        <div class="when"><span data-l="zh">2025.11</span><span data-l="en">2025.11</span></div>
         <div class="what">
           <span data-l="zh">荣获睿远红杉人才发展基金（专业唯一）</span>
           <span data-l="en">Received the Ruiyuan Sequoia Talent Development Fund (sole recipient in major)</span>
         </div>
       </li>
       <li>
-        <div class="when"><span data-l="zh">2025.11</span><span data-l="en">Nov 2025</span></div>
+        <div class="when"><span data-l="zh">2025.11</span><span data-l="en">2025.11</span></div>
         <div class="what">
           <span data-l="zh">荣获全国大学生数学建模竞赛 C 题国家级一等奖</span>
           <span data-l="en">Won the National First Prize (Problem C) in the China Undergraduate Mathematical Contest in Modeling (CUMCM)</span>
         </div>
       </li>
       <li>
-        <div class="when"><span data-l="zh">2025.11</span><span data-l="en">Nov 2025</span></div>
+        <div class="when"><span data-l="zh">2025.11</span><span data-l="en">2025.11</span></div>
         <div class="what">
           <span data-l="zh">荣获上海交通大学“三好学生”称号</span>
           <span data-l="en">Named a Merit Student (“Three-Good Student”) of Shanghai Jiao Tong University</span>
         </div>
       </li>
       <li>
-        <div class="when"><span data-l="zh">2025.09</span><span data-l="en">Sep 2025</span></div>
+        <div class="when"><span data-l="zh">2025.09</span><span data-l="en">2025.09</span></div>
         <div class="what">
           <span data-l="zh">加入上海交通大学 ScaleLab</span>
           <span data-l="en">Joined ScaleLab at Shanghai Jiao Tong University</span>
         </div>
       </li>
       <li>
-        <div class="when"><span data-l="zh">2025.05</span><span data-l="en">May 2025</span></div>
+        <div class="when"><span data-l="zh">2025.05</span><span data-l="en">2025.05</span></div>
         <div class="what">
           <span data-l="zh">荣获美国大学生数学建模竞赛 C 题特等奖提名（Finalist）</span>
           <span data-l="en">Named a Finalist (Problem C) in the Mathematical Contest in Modeling (MCM/ICM)</span>
