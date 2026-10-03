@@ -119,6 +119,8 @@
     .links a:hover, .links button:hover { color: var(--link); background: var(--accent-soft); }
     .links a:focus-visible, .links button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
     .links .icon { display: block; width: 22px; height: 22px; }
+    .links .labeled { width: auto; gap: 7px; padding: 0 13px 0 11px; }
+    .links .labeled .label { font-size: 0.88rem; font-weight: 500; line-height: 1; letter-spacing: 0.01em; }
     .sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
     /* Sections */
@@ -246,15 +248,9 @@
           </a>
         </li>
         <li>
-          <a href="https://openreview.net/profile?id=~Yunwan_Fu1" target="_blank" rel="noopener noreferrer" title="OpenReview" aria-label="OpenReview">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.2 3H7a2.2 2.2 0 0 0-2.2 2.2v13.6A2.2 2.2 0 0 0 7 21h10a2.2 2.2 0 0 0 2.2-2.2V9Z"/><path d="M13.2 3v4.4a1.6 1.6 0 0 0 1.6 1.6H19"/><path d="M8.6 13.2h6.6M8.6 16.4h4.2"/></svg>
-            <span class="sr">OpenReview</span>
-          </a>
-        </li>
-        <li>
-          <a href="cv.pdf" target="_blank" rel="noopener noreferrer" title="CV" aria-label="CV (PDF)">
+          <a class="labeled" href="cv.pdf" target="_blank" rel="noopener noreferrer" title="CV (PDF)" aria-label="CV (PDF)">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="3" width="16" height="18" rx="2.5"/><circle cx="12" cy="9.8" r="2.3"/><path d="M7.8 17.6c.9-1.8 2.5-2.8 4.2-2.8s3.3 1 4.2 2.8"/></svg>
-            <span class="sr">CV</span>
+            <span class="label">CV</span>
           </a>
         </li>
         <li>
