@@ -125,7 +125,8 @@
     section { margin-top: 44px; }
 
     /* Section title styled like a tab: grey at rest, dark on hover / press / selected. */
-    .tab { margin: 0 0 14px; font-size: 1.6rem; font-weight: 400; line-height: 1.6; }
+    .tab { display: flex; flex-wrap: wrap; gap: 0 1em; margin: 44px 0 14px; font-size: 1.6rem; font-weight: 400; line-height: 1.6; }
+    .panel { margin-top: 0; }
     .tab button { all: unset; cursor: pointer; color: var(--tab-idle); transition: color 0.15s; }
     .tab button:hover,
     .tab button:active,
@@ -148,7 +149,7 @@
 
     /* Publications: thumbnail | title, authors, venue, links */
     .pubs { margin: 0; padding: 0; list-style: none; }
-    .pub { display: grid; grid-template-columns: 150px 1fr; gap: 0 22px; align-items: start; }
+    .pub { display: grid; grid-template-columns: 180px 1fr; gap: 0 22px; align-items: start; }
     .pub + .pub { margin-top: 28px; }
     .pub .thumb { display: block; }
     .pub .thumb img { display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 0 0 1px var(--rule); }
@@ -214,7 +215,7 @@
       .entries .what::before { display: none; }
       .entries .when { padding-top: 0; margin-bottom: 2px; }
       .pub { grid-template-columns: 1fr; gap: 12px 0; }
-      .pub .thumb { width: 150px; }
+      .pub .thumb { width: 180px; }
     }
     @media print {
       main { padding-top: 0; }
@@ -272,11 +273,15 @@
     <img class="photo" src="photo.jpg" alt="付芸菀 (Yunwan Fu)" />
   </header>
 
-  <section id="news">
-    <h2 class="tab"><button type="button">News</button></h2>
+  <div class="tab" role="tablist" aria-label="Sections">
+    <button type="button" role="tab" id="tab-news" aria-controls="news" data-tab="news">News</button>
+    <button type="button" role="tab" id="tab-publications" aria-controls="publications" data-tab="publications">Publications</button>
+  </div>
+
+  <section id="news" class="panel" role="tabpanel" aria-labelledby="tab-news">
     <ul class="entries">
       <li>
-        <div class="when"><span data-l="zh">2026.11</span><span data-l="en">2026.11</span></div>
+        <div class="when"><span data-l="zh">2026.10</span><span data-l="en">2026.10</span></div>
         <div class="what">
           <span data-l="zh">论文 <a href="https://arxiv.org/abs/2611.07679" target="_blank" rel="noopener noreferrer">PhySA</a> 被 R2RL @ CoRL 2026 录用</span>
           <span data-l="en">Paper <a href="https://arxiv.org/abs/2611.07679" target="_blank" rel="noopener noreferrer">PhySA</a> accepted to R2RL @ CoRL 2026</span>
@@ -334,12 +339,11 @@
     </ul>
   </section>
 
-  <section id="publications">
-    <h2 class="tab"><button type="button">Publications</button></h2>
+  <section id="publications" class="panel" role="tabpanel" aria-labelledby="tab-publications">
     <ul class="pubs">
       <li class="pub">
         <a class="thumb" href="https://arxiv.org/abs/2611.07679" target="_blank" rel="noopener noreferrer">
-          <img src="physa-thumb.jpg" alt="PhySA compared with Prompt2Policy on humanoid gait smoothness" width="460" height="659" loading="lazy" />
+          <img src="physa-thumb.jpg" alt="Humanoid poses from a vanilla PPO rollout and a PhySA rollout" width="743" height="618" />
         </a>
         <div class="info">
           <h3><a href="https://arxiv.org/abs/2611.07679" target="_blank" rel="noopener noreferrer">PhySA: Decoupling Aesthetic and Physical Rewards for Humanoid Locomotion</a></h3>
@@ -396,9 +400,19 @@
     if (email) email.setAttribute('href', 'mail' + 'to:' + email.getAttribute('data-u') + '@' + email.getAttribute('data-d'));
 
     var tabs = document.querySelectorAll('.tab button');
-    for (var t = 0; t < tabs.length; t++) {
-      tabs[t].addEventListener('click', function () { this.classList.add('is-checked'); });
+    function showTab(name) {
+      for (var t = 0; t < tabs.length; t++) {
+        var on = tabs[t].getAttribute('data-tab') === name;
+        tabs[t].classList.toggle('is-checked', on);
+        tabs[t].setAttribute('aria-selected', String(on));
+        document.getElementById(tabs[t].getAttribute('data-tab')).hidden = !on;
+      }
     }
+    for (var t = 0; t < tabs.length; t++) {
+      tabs[t].addEventListener('click', function () { showTab(this.getAttribute('data-tab')); });
+    }
+    // Panels are all visible without JS; #publications links straight to that tab.
+    showTab(location.hash === '#publications' ? 'publications' : 'news');
 
     var dialog = document.getElementById('wechat-dialog');
     function closeDialog() { if (dialog.close) dialog.close(); else dialog.removeAttribute('open'); }
