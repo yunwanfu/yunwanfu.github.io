@@ -146,6 +146,18 @@
     .entries li:hover .when { color: var(--text); }
     .entries li:hover .what::before { background: var(--accent); border-color: var(--accent); }
 
+    /* Publications: thumbnail | title, authors, venue, links */
+    .pubs { margin: 0; padding: 0; list-style: none; }
+    .pub { display: grid; grid-template-columns: 150px 1fr; gap: 0 22px; align-items: start; }
+    .pub + .pub { margin-top: 28px; }
+    .pub .thumb { display: block; }
+    .pub .thumb img { display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 0 0 1px var(--rule); }
+    .pub .info { min-width: 0; }
+    .pub h3 { margin: 0 0 4px; font-size: 1rem; font-weight: 600; line-height: 1.5; text-wrap: pretty; }
+    .pub p { margin: 0; font-size: 0.95rem; line-height: 1.6; }
+    .pub .venue b { font-weight: 600; }
+    .pub .sep { margin: 0 6px; color: var(--text-muted); }
+
     footer { margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--text-muted); font-size: 0.85rem; }
 
     /* WeChat dialog */
@@ -181,6 +193,7 @@
     .entries li:nth-child(5) { animation-delay: 0.38s; }
     .entries li:nth-child(6) { animation-delay: 0.43s; }
     .entries li:nth-child(7) { animation-delay: 0.48s; }
+    .entries li:nth-child(8) { animation-delay: 0.53s; }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -200,6 +213,8 @@
       .entries .what { padding: 0; border: 0; }
       .entries .what::before { display: none; }
       .entries .when { padding-top: 0; margin-bottom: 2px; }
+      .pub { grid-template-columns: 1fr; gap: 12px 0; }
+      .pub .thumb { width: 150px; }
     }
     @media print {
       main { padding-top: 0; }
@@ -261,6 +276,13 @@
     <h2 class="tab"><button type="button">News</button></h2>
     <ul class="entries">
       <li>
+        <div class="when"><span data-l="zh">2026.11</span><span data-l="en">2026.11</span></div>
+        <div class="what">
+          <span data-l="zh">论文 <a href="https://arxiv.org/abs/2611.07679" target="_blank" rel="noopener noreferrer">PhySA</a> 被 R2RL @ CoRL 2026 录用</span>
+          <span data-l="en">Paper <a href="https://arxiv.org/abs/2611.07679" target="_blank" rel="noopener noreferrer">PhySA</a> accepted to R2RL @ CoRL 2026</span>
+        </div>
+      </li>
+      <li>
         <div class="when"><span data-l="zh">2026.03</span><span data-l="en">2026.03</span></div>
         <div class="what">
           <span data-l="zh">加入 USC（南加州大学）Physical Superintelligence (PSI) Lab</span>
@@ -312,10 +334,27 @@
     </ul>
   </section>
 
+  <section id="publications">
+    <h2 class="tab"><button type="button">Publications</button></h2>
+    <ul class="pubs">
+      <li class="pub">
+        <a class="thumb" href="https://arxiv.org/abs/2611.07679" target="_blank" rel="noopener noreferrer">
+          <img src="physa-thumb.jpg" alt="PhySA compared with Prompt2Policy on humanoid gait smoothness" width="460" height="659" loading="lazy" />
+        </a>
+        <div class="info">
+          <h3><a href="https://arxiv.org/abs/2611.07679" target="_blank" rel="noopener noreferrer">PhySA: Decoupling Aesthetic and Physical Rewards for Humanoid Locomotion</a></h3>
+          <p><b>Yunwan Fu</b>, Sicheng He, Jiageng Mao, Yue Wang.</p>
+          <p class="venue"><i>CoRL Workshop on Roadmap to Sample-Efficient Real-World Reinforcement Learning (<b>R2RL</b>), 2026.</i></p>
+          <p><a href="https://arxiv.org/abs/2611.07679" target="_blank" rel="noopener noreferrer">arXiv</a><span class="sep" aria-hidden="true">&bull;</span><a href="https://arxiv.org/pdf/2611.07679" target="_blank" rel="noopener noreferrer">PDF</a></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
 
   <footer>
-    <span data-l="zh">© 2026 付芸菀 · 最后更新：2026 年 9 月</span>
-    <span data-l="en">© 2026 Yunwan Fu · Last updated: September 2026</span>
+    <span data-l="zh">© 2026 付芸菀 · 最后更新：2026 年 11 月</span>
+    <span data-l="en">© 2026 Yunwan Fu · Last updated: November 2026</span>
   </footer>
 </main>
 
@@ -356,8 +395,10 @@
     var email = document.getElementById('email');
     if (email) email.setAttribute('href', 'mail' + 'to:' + email.getAttribute('data-u') + '@' + email.getAttribute('data-d'));
 
-    var tab = document.querySelector('.tab button');
-    if (tab) tab.addEventListener('click', function () { tab.classList.add('is-checked'); });
+    var tabs = document.querySelectorAll('.tab button');
+    for (var t = 0; t < tabs.length; t++) {
+      tabs[t].addEventListener('click', function () { this.classList.add('is-checked'); });
+    }
 
     var dialog = document.getElementById('wechat-dialog');
     function closeDialog() { if (dialog.close) dialog.close(); else dialog.removeAttribute('open'); }
