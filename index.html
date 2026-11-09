@@ -135,8 +135,8 @@
 
     /* Timeline entries: date | rail with dot | text */
     .entries { margin: 0; padding: 0; list-style: none; }
-    .entries li { display: grid; grid-template-columns: 96px 1fr; gap: 0 20px; }
-    .entries .when { padding-top: 2px; color: var(--text-muted); font-size: 0.92rem; font-variant-numeric: tabular-nums; transition: color 0.2s; }
+    .entries li { display: grid; grid-template-columns: 140px 1fr; gap: 0 20px; }
+    .entries .when { white-space: nowrap; padding-top: 2px; color: var(--text-muted); font-size: 0.92rem; font-variant-numeric: tabular-nums; transition: color 0.2s; }
     .entries .what { position: relative; min-width: 0; padding: 0 0 16px 22px; border-left: 1px solid var(--rule); }
     .entries li:last-child .what { padding-bottom: 0; }
     .entries .what::before {
@@ -195,6 +195,7 @@
     .entries li:nth-child(6) { animation-delay: 0.43s; }
     .entries li:nth-child(7) { animation-delay: 0.48s; }
     .entries li:nth-child(8) { animation-delay: 0.53s; }
+    .entries li:nth-child(9) { animation-delay: 0.58s; }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -280,6 +281,13 @@
 
   <section id="news" class="panel" role="tabpanel" aria-labelledby="tab-news">
     <ul class="entries">
+      <li>
+        <div class="when"><span data-l="zh">2026.10–至今</span><span data-l="en">2026.10–present</span></div>
+        <div class="what">
+          <span data-l="zh">在萝博派对（RoboParty）实习，从事 Agent 研究</span>
+          <span data-l="en">Intern at RoboParty, working on agent research</span>
+        </div>
+      </li>
       <li>
         <div class="when"><span data-l="zh">2026.10</span><span data-l="en">2026.10</span></div>
         <div class="what">
